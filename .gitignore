@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.env
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.h5
+npm-debug.log*
