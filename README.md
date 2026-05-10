@@ -1,58 +1,66 @@
+# Medical AI Platform Interface
 
-  # Medical AI Platform Interface
+This repository is organized for jury review into two main folders:
 
-  This is a code bundle for Medical AI Platform Interface. The original project is available at https://www.figma.com/design/ZnN9N1iqfnfZvczdtGToGB/Medical-AI-Platform-Interface.
+- `front end/` - React + Vite user interface
+- `back end/` - Node.js API, PostgreSQL schema, and Python AI services
 
-  ## Running the code
+Demo video: `recording.webm`
 
-  Run `npm i` to install the dependencies.
+## Project Flow
 
-  Run `npm run dev` to start the development server.
+```text
+React frontend -> Node.js API -> Python AI inference service -> PostgreSQL
+```
 
-  ## Architecture
+The frontend sends retinal scan uploads to the Node.js backend. The backend forwards images to the Python FastAPI AI service for prediction, then stores analysis records in PostgreSQL.
 
-  This project is structured for:
+## Run Locally
 
-  - React + Vite frontend in `src/`
-  - Node.js API backend in `server/`
-  - PyTorch FastAPI inference service in `ai-service/`
-  - PostgreSQL database using `server/sql/001_init.sql`
+Use three terminals.
 
-  Runtime flow:
+1. Start the AI service:
 
-  ```text
-  React upload page -> Node.js /api/analyze -> Python FastAPI /predict -> React result display
-  ```
+```bash
+cd "back end/ai-service"
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
 
-  ## Backend setup
+2. Start the Node.js backend:
 
-  Create the database and run the schema:
+```bash
+cd "back end/server"
+npm install
+cp .env.example .env
+npm run dev
+```
 
-  ```bash
-  createdb medical_ai_platform
-  psql medical_ai_platform -f server/sql/001_init.sql
-  ```
+3. Start the frontend:
 
-  Start the Node.js API:
+```bash
+cd "front end"
+npm install
+npm run dev
+```
 
-  ```bash
-  cd server
-  npm install
-  cp .env.example .env
-  npm run dev
-  ```
+## Database
 
-  Start the PyTorch service separately:
+Create the PostgreSQL database and run the schema:
 
-  ```bash
-  cd ai-service
-  python -m venv .venv
-  source .venv/bin/activate
-  pip install -r requirements.txt
-  uvicorn main:app --reload --port 8000
-  ```
+```bash
+createdb medical_ai_platform
+psql medical_ai_platform -f "back end/server/sql/001_init.sql"
+```
 
-  The React upload page calls the Node.js endpoint at `http://localhost:5000/api/analyze`.
-  The Node.js backend forwards the image to the PyTorch endpoint at `http://localhost:8000/predict`.
-  The AI service loads `swin_spsd_best.pth` from the project root.
-  
+## Model File
+
+The trained checkpoint is too large for normal GitHub storage. For local inference, place it here:
+
+```text
+back end/swin_spsd_best.pth
+```
+
+The `.gitignore` keeps model checkpoints out of Git so pushes stay below GitHub's file size limit.

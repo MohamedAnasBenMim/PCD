@@ -7,11 +7,17 @@ The service recreates the SwinSPSD/Swin Transformer architecture before calling 
 ## Run
 
 ```bash
-cd ai-service
+cd "back end/ai-service"
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
+```
+
+Expected model file:
+
+```text
+back end/swin_spsd_best.pth
 ```
 
 Endpoint:

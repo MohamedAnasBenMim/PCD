@@ -7,7 +7,7 @@ Use a pretrained model for this project. Keep the React app as the UI, use Node.
 By default the API looks for:
 
 ```bash
-api/weights/retina_model.pt
+back end/api/weights/retina_model.pt
 ```
 
 The sample API expects an EfficientNet-B0 classifier with four output classes:
@@ -21,20 +21,21 @@ If your trained model uses another architecture or a different class list, updat
 ## Run
 
 ```bash
-cd api
+cd "back end/api"
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 MODEL_WEIGHTS_PATH=weights/retina_model.pt uvicorn main:app --reload --port 8000
 ```
 
-Then start the frontend from the project root:
+Then start the frontend:
 
 ```bash
+cd "../../front end"
 npm run dev
 ```
 
-The Node.js backend posts the selected image to `http://localhost:8000/predict`. To use another URL in Node, set `PYTORCH_API_URL` in `server/.env`.
+The Node.js backend posts the selected image to `http://localhost:8000/predict`. To use another URL in Node, set `PYTORCH_API_URL` or `AI_SERVICE_URL` in `back end/server/.env`.
 
 For local testing without Node, the frontend can still point directly to this service by setting:
 

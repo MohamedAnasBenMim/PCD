@@ -13,7 +13,8 @@ from torchvision import models, transforms
 
 
 CLASS_NAMES = ["No DR", "Mild", "Moderate", "Severe"]
-MODEL_WEIGHTS_PATH = os.getenv("MODEL_WEIGHTS_PATH", "api/weights/retina_model.pt")
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_WEIGHTS_PATH = os.getenv("MODEL_WEIGHTS_PATH", str(BASE_DIR / "weights" / "retina_model.pt"))
 ALLOW_DUMMY_MODEL = os.getenv("MODEL_ALLOW_DUMMY", "false").lower() == "true"
 
 app = FastAPI(title="Retinal Analysis API")
