@@ -1,9 +1,10 @@
 # Medical AI Platform Interface
 
-This repository is organized into two main folders:
+This repository is organized into three main folders:
 
 - `front end/` - React + Vite user interface
 - `back end/` - Node.js API, PostgreSQL schema, and Python AI services
+- `training-code/` - Offline PyTorch training code used to generate the model checkpoint
 
 Demo video: `recording.webm`
 
@@ -19,7 +20,7 @@ The frontend sends retinal scan uploads to the Node.js backend. The backend forw
 
 Use three terminals.
 
-1. Start the AI service:
+### 1. Start the AI Service
 
 ```bash
 cd "back end/ai-service"
@@ -29,7 +30,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-2. Start the Node.js backend:
+### 2. Start the Node.js Backend
 
 ```bash
 cd "back end/server"
@@ -38,7 +39,7 @@ cp .env.example .env
 npm run dev
 ```
 
-3. Start the frontend:
+### 3. Start the Frontend
 
 ```bash
 cd "front end"
@@ -64,3 +65,28 @@ back end/swin_spsd_best.pth
 ```
 
 The `.gitignore` keeps model checkpoints out of Git so pushes stay below GitHub's file size limit.
+
+## Training Code
+
+The `training-code/` folder contains the offline PyTorch training script used to train the Swin-SPSD diabetic retinopathy model.
+
+```text
+training-code/
+  train_swin_spsd.py
+  requirements.txt
+  README.md
+```
+
+This folder is not required to run the dashboard. It is included to show how the model checkpoint was generated.
+
+The training script produces:
+
+```text
+swin_spsd_best.pth
+```
+
+After training, place the generated checkpoint here so the AI inference service can load it:
+
+```text
+back end/swin_spsd_best.pth
+```
