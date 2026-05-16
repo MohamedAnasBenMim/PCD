@@ -56,7 +56,7 @@ From this folder:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python train_swin_spsd.py
+python train_pspl_swin.py
 ```
 
 The script saves:

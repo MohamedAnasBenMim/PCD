@@ -72,7 +72,7 @@ The `training-code/` folder contains the offline PyTorch training script used to
 
 ```text
 training-code/
-  train_swin_spsd.py
+  train_pspl_swin.py
   requirements.txt
   README.md
 ```
