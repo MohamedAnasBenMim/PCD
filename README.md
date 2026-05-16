@@ -1,6 +1,6 @@
 # Medical AI Platform Interface
 
-This repository is organized for jury review into two main folders:
+This repository is organized into two main folders:
 
 - `front end/` - React + Vite user interface
 - `back end/` - Node.js API, PostgreSQL schema, and Python AI services
